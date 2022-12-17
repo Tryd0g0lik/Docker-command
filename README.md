@@ -56,12 +56,12 @@ COPY . /app</code></pre><br>
           В этом примере базовый образ хранится в репозитории <code>python:3.10</code>.<br>
           Каждый следующий слой представляет собой файл, описывающий отличия образа в сравнении с тем его состоянием, в котором он был после добавления в него предыдущего слоя</p>
           <p>При создании контейнера слой, в который можно вносить изменения, добавляется поверх всех остальных слоёв. Данные, находящиеся в остальных слоях, можно только читать.</p>
-    </td>
+        <img src="img_readme/912530d4f3468f0bff2a064d58d62caf.jpg">
+</td>
    </tr>
-</table>
-[Изображение](img_readme/912530d4f3468f0bff2a064d58d62caf.jpg)
-<table>
-      
+
+
+
    <tr>
      <td colspan='2'>
       <h3>Более сложный Dockerfile</h3>
@@ -367,6 +367,7 @@ CMD [<span>"./app"</span>]</code></pre>
         </ul>
         <br>
         <p>Теперь, когда мы завершили эту серию материалов о Docker, пришло время сказать пару слов о том, куда тем, кто изучает Docker, можно двигаться дальше. <a href="https://medium.freecodecamp.org/a-beginner-friendly-introduction-to-containers-vms-and-docker-79a9e3e119b">Вот</a> большая хорошая статья о Docker. <a href="https://www.amazon.com/Docker-Deep-Dive-Nigel-Poulton-ebook/dp/B01LXWQUFF">Вот</a> книга о Docker (покупая эту книгу, постарайтесь раздобыть самое свежее её издание). <a href="https://dockerbook.com/">Вот</a> ещё одна книга, которая подойдёт тем, кто полагает, что практика — это лучший способ изучения технологий.</p>
+        <p><a href="https://habr.com/ru/company/ruvds/blog/438796/" target="_blank">Источник</a></p>
       </td>
     </tr>
     <tr>      
