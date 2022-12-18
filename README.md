@@ -50,7 +50,7 @@ COPY . /app</code></pre><br>
       <th>
          <code>FROM python:3.10</code>
       </th>
-      <td>
+      <td style="max-width: 510px;">
           Говорим - 'Загружай python'<br>
           <p>Файл Dockerfile должен начинаться с инструкции <code>FROM</code>, или с инструкции <code>ARG</code>, за которой идёт инструкция <code>FROM</code>.</p>
           <p><a href="https://docs.docker.com/engine/reference/builder/#from">FROM</a> сообщает Docker о том, чтобы при сборке образа использовался бы базовый образ, который соответствует предоставленному имени и тегу. Базовый образ, кроме того, ещё называют <a href="https://docs.docker.com/develop/develop-images/baseimages/">родительским образом</a>. <br>
@@ -150,7 +150,7 @@ VOLUME /my_volume</code></pre><br>
    </tr>
    <tr>
      <th><code>WORKDIR</code></th>
-      <td>
+      <td style="max-width: 510px;">
         позволяет изменить рабочую директорию контейнера.<br>
          <p>С этой директорией работают инструкции <code>COPY</code>, <code>ADD</code>, <code>RUN</code>, <code>CMD</code> и <code>ENTRYPOINT</code>, идущие за <code>WORKDIR</code>. Вот некоторые особенности, касающиеся этой инструкции:</p>
            <ul>
@@ -164,7 +164,7 @@ VOLUME /my_volume</code></pre><br>
       <th>
         <code>ARG</code>
       </th>
-      <td>
+      <td style="max-width: 510px;">
         позволяет задать переменную, значение которой можно передать из командной строки в образ во время его сборки.
           <p> Значение для переменной по умолчанию можно представить в Dockerfile. Например: <code>ARG my_var=my_default_value</code></p>
           <p>В отличие от <code>ENV</code>-переменных, <code>ARG</code>-переменные недоступны во время выполнения контейнера. Однако <code>ARG</code>-переменные можно использовать для задания значений по умолчанию для <code>ENV</code>-переменных из командной строки в процессе сборки образа. А <code>ENV</code>-переменные уже будут доступны в контейнере во время его выполнения. Подробности о такой методике работы с переменными можно почитать <a href="https://vsupalov.com/docker-build-time-env-values/">здесь</a>.</p>
@@ -174,7 +174,7 @@ VOLUME /my_volume</code></pre><br>
       <th>
         <code>ENTRYPOINT</code>
       </th>
-      <td>
+      <td style="max-width: 510px;">
         <p>позволяет задавать команду с аргументами, которая должна выполняться при запуске контейнера.</p>
           <p> Она похожа на команду <code>CMD</code>, но параметры, задаваемые в <code>ENTRYPOINT</code>, не перезаписываются в том случае, если контейнер запускают с параметрами командной строки.</p>
           <p>Вместо этого аргументы командной строки, передаваемые в конструкции вида <code>docker run my_image_name</code>, добавляются к аргументам, задаваемым инструкцией <code>ENTRYPOINT</code>. Например, после выполнения команды вида <code>docker run my_image bash</code> аргумент <code>bash</code> добавится в конец списка аргументов, заданных с помощью <code>ENTRYPOINT</code>. Готовя Dockerfile, не забудьте об инструкции <code>CMD</code> или <code>ENTRYPOINT</code>.</p>
@@ -193,7 +193,7 @@ VOLUME /my_volume</code></pre><br>
         <th>
           <code>EXPOSE</code>
         </th>
-        <td>
+        <td style="max-width: 510px;">
           <p>указывает на то, какие порты планируется открыть для того, чтобы через них можно было бы связаться с работающим контейнером.</p>
         <p> Эта инструкция не открывает порты. Она, скорее, играет роль документации к образу, средством общения того, кто собирает образ, и того, кто запускает контейнер.</p>
         <p>Для того чтобы открыть порт (или порты) и настроить перенаправление портов, нужно выполнить команду <code>docker run</code> с ключом <code>-p</code>. Если использовать ключ в виде <code>-P</code> (с заглавной буквой <code>P</code>), то открыты будут все порты, указанные в инструкции <code>EXPOSE</code>.</p>
@@ -203,7 +203,7 @@ VOLUME /my_volume</code></pre><br>
         <th>
           <code>VOLUME</code>
         </th>
-        <td>
+        <td style="max-width: 510px;">
            <p>позволяет указать место, которое контейнер будет использовать для постоянного хранения файлов и для работы с такими файлами.</p>
         </td>
       </tr>
@@ -339,19 +339,19 @@ CMD [<span>"./app"</span>]</code></pre>
     </tr>
     <tr>
       <th><code>docker volume create —-name my_volume</code></th>
-      <td>
+      <td style="max-width: 510px;">
       <h3>Создание тома</h3>
       <p>Создать самостоятельный том можно следующей командой</p></td>
     </tr>
     <tr>
       <th><code>docker volume ls</code></th>
-      <td><h3>Выяснение информации о томах</h3>
+      <td style="max-width: 510px;"><h3>Выяснение информации о томах</h3>
         <p>Для того чтобы просмотреть список томов Docker, воспользуйтесь следующей командой</p>
         <p>Исследовать конкретный том можно так: <code>docker volume inspect my_volume</code></p></td>
     </tr>
     <tr>
       <th><code>docker volume rm my_volume</code></th>
-      <td>
+      <td style="max-width: 510px;">
         <p>Для того чтобы удалить все тома, которые не используются контейнерами, можно прибегнуть к такой команде:</p>
         <pre><code>docker volume prune</code></pre><br>
         <p>Перед удалением томов Docker запросит у вас подтверждение выполнения этой операции.</p>
@@ -402,14 +402,14 @@ CMD [<span>"./app"</span>]</code></pre>
       <th>
         <code> ENV PYTHONUNBUFFERED 1</code>
       </th>
-      <td>
+      <td style="max-width: 510px;">
       </td>
     </tr>
     <tr>
       <th>
         <code>WORKDIR /cvresume-web</code>
       </th>
-      <td>
+      <td style="max-width: 510px;">
         Говорим устанавливать рабочую директорию
       </td>
     </tr>
@@ -417,20 +417,20 @@ CMD [<span>"./app"</span>]</code></pre>
       <th>
         <code>COPY</code>
       </th>
-      <td>
+      <td style="max-width: 510px;">
         <code>requirements.txt /cvresume-web/</code> <br>
         берем все зависимости из <code>requirements.txt</code> и копируем в <code>cvresume-web</code>
       </td>
     </tr>
     <tr>
         <th><code>RUN</code> </th>
-        <td> <code>pip install -r cvresume-web/requirements.txt</code></td>
+        <td style="max-width: 510px;"> <code>pip install -r cvresume-web/requirements.txt</code></td>
     </tr>
     <tr>
       <th>
         <code>COPY</code>
       </th>
-      <td>
+      <td style="max-width: 510px;">
         <code>. /cvresume-web/</code>
          указываем куда компировать весь наш проект
       </td>
@@ -439,7 +439,7 @@ CMD [<span>"./app"</span>]</code></pre>
       <th>
         <code>`EXPOSE</code>
       </th>
-      <td>
+      <td style="max-width: 510px;">
         номер порта, например <code>8000</code>
       </td>
     </tr>
@@ -447,7 +447,7 @@ CMD [<span>"./app"</span>]</code></pre>
       <th>
         <code>CMD</code>
       </th>
-      <td>
+      <td style="max-width: 510px;">
          <code>['python', 'cvresume-web/manage.py', 'runserver', '0.0.0.0:8000']</code> <br> Указываем - что запускать
       </td>
     </tr>
@@ -471,7 +471,7 @@ CMD [<span>"./app"</span>]</code></pre>
       <th>
         <code>docker images</code>
       </th>
-      <td>
+      <td style="max-width: 510px;">
         выводит список всех репозиториев
       </td>
     </tr>
@@ -479,7 +479,7 @@ CMD [<span>"./app"</span>]</code></pre>
       <th>
        <code>docker ps</code>
      </th>
-     <td>
+     <td style="max-width: 510px;">
       выводит список активных контейнеров
     </td>
     </tr>
@@ -487,7 +487,7 @@ CMD [<span>"./app"</span>]</code></pre>
       <th>
         <code>docker ps -a</code>
       </th>
-      <td>
+      <td style="max-width: 510px;">
         выводит список активных контейнеров и которые были активные.
       </td>
     </tr>
@@ -495,7 +495,7 @@ CMD [<span>"./app"</span>]</code></pre>
       <th>
         <code>docker build</code>
       </th>
-      <td>
+      <td style="max-width: 510px;">
         <code>-t cvresume_web ./cvresume-web/</code> <br>
         создаем новый репозиторий/образ где <code>cvresume_web</code> - название репозитория, <code>.
 /cvresume-web/</code><br>
@@ -513,7 +513,7 @@ CMD [<span>"./app"</span>]</code></pre>
     <th>
       <code>dir</code>
     </th>
-    <td>
+    <td style="max-width: 510px;">
       содержимое папки в которой находимся <br>
       <code>dir -1</code> - вывести содержимое где сортировка в СТОЛБИК <br>
       <code>dir -R</code> - вывести содержимое где сортировка в СТОЛБИК и показаны ВЛОЖЕННЫЕ папки и файлы <br>
@@ -524,13 +524,13 @@ CMD [<span>"./app"</span>]</code></pre>
     <th>
       <code>docker images</code>
     </th>
-    <td>показать все установленные образы</td>
+    <td style="max-width: 510px;">показать все установленные образы</td>
   </tr>
   <tr>
     <th>
       <code>FIND</code>
     </th>
-    <td> - поиск всего, что есть в домашней дериктории <br>
+    <td style="max-width: 510px;"> - поиск всего, что есть в домашней дериктории <br>
       <code>find snap/lxd</code> - ищим все что в папке имеющей путь "snap/lxd" <br>
       <code>find -name "*.php"</code> - ищим все, что имеет расширение "php" <br>
       <code>find -name "budi."</code> - ищим все, где имя начинается на "budi" <br>
@@ -540,7 +540,7 @@ CMD [<span>"./app"</span>]</code></pre>
     <th>
       <code>apt update / apt-get update</code>
     </th>
-    <td> - показывает число "Сколько можно обновить" <br>
+    <td style="max-width: 510px;"> - показывает число "Сколько можно обновить" <br>
        <code>apt upgrate</code> - обновляет ( с правами пользователя).
     </td>
   </tr>
@@ -548,19 +548,19 @@ CMD [<span>"./app"</span>]</code></pre>
     <th>
       <code>mkdir test</code>
     </th>
-    <td> - создать папку "test"</td>
+    <td style="max-width: 510px;"> - создать папку "test"</td>
   </tr>
   <tr>
     <th>
       <code>mkdir test</code>
     </th>
-    <td> - создать папку "test"</td>
+    <td style="max-width: 510px;"> - создать папку "test"</td>
   </tr>
   <tr>
     <th>
       <code>docker searche имя_контейнера</code>
     </th>
-    <td>смотрим, есть ли контейнер с заданным именем</td>
+    <td style="max-width: 510px;">смотрим, есть ли контейнер с заданным именем</td>
   </tr>
   <tr>
     <td style="max-width: 800px;" colspan='2'>
