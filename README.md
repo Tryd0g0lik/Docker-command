@@ -682,6 +682,10 @@ docker rm $(docker ps -a -q)</code></pre>
     </td>
   </tr>
   <tr>
-    <td colspan="2"> <a href="https://gist.github.com/wtw24/66265a5707d5febd7ed51f570db94157" target="_blank"> Список команд</a></td>
+    <td colspan="2"> <a href="https://gist.github.com/wtw24/66265a5707d5febd7ed51f570db94157" target="_blank">1. Список комманд</a><br>
+    <a href="https://gist.github.com/tomasevich/521926e5dabcee3a35afa30124102176" target="_blank">2. Список комманд</a><br>
+    <a href="https://www.youtube.com/watch?v=ZkJtKRIo2As" target="_blank">3. cmd Docker video</a><br>
+    <a href="https://docs.docker.com/engine/reference/commandline/rmi/" target="_blank">4. Документация</a>
+    </td>
   </tr>
 </table>
