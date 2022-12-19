@@ -39,7 +39,16 @@
     <td> Смотрим логи контейнера который имеет id < id-контейнера > или иего имя </td>
   </tr>
   <tr>
-
+    <th><code>docker-compose top[SERVICE...]</code></th>
+    <td>Проверьте процесс работы в каждом сервисном контейнере</td>
+  </tr>
+  <tr>
+    <th><code>docker-compose pause [SERVICE...]</code></th>
+    <td>Служба остановилась Пауза</td>
+  </tr>
+  <tr>
+    <th><code>docker-compose logs[SERVICE...]</code></th>
+    <td>Посмотреть журнал</td>
   </tr>
   <tr>
     <td colspan="2"><h2>Флаги</h2>
