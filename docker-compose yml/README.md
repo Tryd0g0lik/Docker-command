@@ -6,7 +6,7 @@
   </tr>
   <tr>
   <td colspan="2">
-      <img src="img_readme/Screenshot_1.png" alt="Название сервиса">
+      <img src="../img_readme/Screenshot_1.png" alt="Название сервиса">
     </td>
   </tr>
   <tr>
