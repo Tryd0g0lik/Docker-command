@@ -60,12 +60,32 @@
       <code>--build</code> говорим docker-у заново пересоздать образы, каждый раз когда изменили приложение. <br>
       <code>-d</code> запуск создания в background. <br>
       <code>-v</code>, --Версия печати версии и выйти.<br>
+      <code>--dns=[]</code>           : Установиkивает пользовательские dns-серверы для контейнера <br>
+      <code>--network="bridge"</code> : Подключяет контейнер к сети <br>
+      … … … <code>'bridge'</code>: Подключите контейнер к мосту через интерфейсы veth <br>
+      … … … <code>'none'</code>:Нет сети в контейнере <br>
+      … … … <code>'container:< name|id >'</code>:Используйте сетевой стек другого контейнера, указанный через его имя или идентификатор. <br>
+      … … … <code>'host'</code>: Используйте сетевой стек хоста внутри контейнера. <br>
+      <code>'< network-name >|< network-id >'</code>:подключение к определяемой пользователем сети <br>
+      <code>--network-alias=[]</code> : Добавьте псевдоним в сетевой области для контейнера <br>
+      <code>--add-host=""</code>      : Добавьте строку в <code>/etc/hosts (host:IP)</code> <br>
+      <code>--mac-address=""</code>   : Задает MAC-адрес устройства Ethernet контейнера <br>
+      <code>--ip=""</code>     : Задает IPv4-адрес устройства Ethernet контейнера <br>
+      <code>--ip6=""</code>           : Задает IPv6-адрес устройства Ethernet контейнера <br>
+      <code>--link-local-ip=[]</code> : Установите локальные адреса IPv4/IPv6 для соединения с одним или несколькими устройствами Ethernet контейнера
     </td>
   </tr>
   <tr>
     <td colspan="2">
-      Выполнить <code>Docker-compose [COMMAND] --help</code> <br>
+      <code>Docker-compose [COMMAND] --help</code> <br>
       Или <code>докер-compose help [COMMAND]</code>  Вы можете просмотреть формат конкретной команды.
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2">
+      <a href="https://docs.docker.com/get-started/08_using_compose/" target="_blank">1. Documetation - Short sintaxis </a> <br>
+      <a href="https://docs.docker.com/compose/compose-file/compose-file-v3/#long-syntax-1" target="_blank">2. Documetation - a long sintaxis </a><br>
+      <a href="https://docs.docker.com/compose/gettingstarted/" target="_blank">3. Documetation </a><br>
     </td>
   </tr>
 </table>
