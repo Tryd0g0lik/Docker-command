@@ -1,3 +1,4 @@
+<p>Dockerfile размещаем в корневую папку нашего приложения.</p>
 
 <p>Каждому образу Docker соответствует файл, который называется Dockerfile. Его имя — без расширения.
 Dockerfile находится в текущей рабочей директории.<br>
@@ -30,15 +31,17 @@ COPY . /app</code></pre><br>
    <tr>
      <td colspan='2'>
        <ol>
-        <li><code>FROM</code> — задаёт базовый (родительский) образ. <code>FROM < образ ></code></li>
+        <li><code>FROM</code> — задаёт название базового (родительский) образ. <code>FROM < образ ></code></li>
         <li><code>LABEL</code> — описывает метаданные. Например — сведения о том, кто создал и поддерживает образ.</li>
         <li><code>ENV</code> — устанавливает постоянные переменные среды.</li>
         <li><code>RUN</code> — выполняет команду и создаёт слой образа. Используется для установки в контейнер пакетов. <code>RUN < shell команда ></code></li>
-        <li><code>COPY</code> — копирует с зависимостями и переносит в контейнер файлы и папки. <code>COPY < локальный путь > < путь внутри контейнера ></code></li>
+        <li><code>COPY</code> — копирует с зависимостями и переносит в контейнер файлы и папки. <code>COPY < путь на локальном ПК > < путь внутри образа ></code></li>
         <li><code>ADD</code> — копирует файлы и папки в контейнер, может распаковывать локальные .tar-файлы.</li>
         <li><code>CMD</code> — описывает команду командной строки с аргументами, которую нужно выполнить когда контейнер будет запущен. Аргументы могут
-           быть переопределены при запуске контейнера. В файле может присутствовать лишь одна инструкция <code>CMD</code>. <code>CMD ["команда", "аргумент1", "аргумент2"]</code></li>
-        <li><code>WORKDIR</code> — задаёт рабочую директорию для следующей инструкции.</li>
+           быть переопределены при запуске контейнера. <br>В файле может присутствовать лишь одна инструкция <code>CMD</code>.
+           <br> <code>CMD ["команда", "аргумент1"]</code>.<br>
+            Аргументов может быть более одного.</li>
+        <li><code>WORKDIR</code> — задаёт путь к папке внутри образа. Задаём рабочую директорию для следующей инструкции.</li>
         <li><code>ARG</code> — задаёт переменные для передачи Docker во время сборки образа.</li>
         <li><code>ENTRYPOINT</code> — предоставляет команду с аргументами для вызова во время выполнения контейнера. Аргументы не
            переопределяются.</li>
@@ -47,7 +50,7 @@ COPY . /app</code></pre><br>
         <li><code>docker build</code> — запускаем когда Dockerfile готов к тому, чтобы из него получился образ.</li>
       </ol>
       <p><code>docker build . -t my-first-image</code> Точка соответствует пути сборки (все, что в ней находится является контекстом для сборки). При запуске клиент docker передает контекст демону, который по инструкциям-директивам начинает собирать образ.<br>
-      Аргумент <code>-t</code> определяет имя образа. Можно обойтись и без имени, но тогда запускать образ придется по id<br>
+      Аргумент <code>-t</code> позволяет задать имя образа. Можно обойтись и без имени, но тогда запускать образ придется по id<br>
       <code>docker images</code> - docker выведет список образов | id.</p>
      </td>
    </tr>
@@ -96,7 +99,7 @@ RUN ["mkdir", "/a_directory"]
 CMD ["python", "./my_script.py"]</code></pre><br>
         <ol>
           <li>
-            <code>FROM</code> <i>Базой этого образа является официальный образ Python с тегом 3.7.2-alpine3.8.</i><br>
+            <code>FROM</code> <i>Базовый образ является официальный образ Python с тегом 3.7.2-alpine3.8.</i><br>
           </li>
           <li>
             <code>LABEL</code><i>позволяет добавлять в образ метаданные. В случае с рассматриваемым сейчас файлом, она включает в себя контактные сведения создателя образа.</i><br>
@@ -477,6 +480,14 @@ CMD [<span>"./app"</span>]</code></pre>
     </tr>
     <tr>
       <th>
+        <code>docker exec -it < id-контейнера > sh</code>
+      </th>
+      <td>
+        переходим внутрь конейнера, на рабочую дерикторию
+      </td>
+    </tr>
+    <tr>
+      <th>
         <code>docker images</code>
       </th>
       <td>
@@ -517,6 +528,10 @@ CMD [<span>"./app"</span>]</code></pre>
 <table>
   <tr>
     <td colspan="2"><h1>Командная строка</h1></td>
+  </tr>
+  <tr>
+    <th><code>cd /d C:\Program Files</code></th>
+    <td> -  поменять диск, но и сразу же перейти в конкретную папку</td>
   </tr>
   <tr>
     <th>
@@ -569,7 +584,7 @@ CMD [<span>"./app"</span>]</code></pre>
   </tr>
   <tr>
     <th>
-      <code>docker searche имя_контейнера</code>
+      <code>docker search имя_контейнера</code>
     </th>
     <td>смотрим, есть ли контейнер с заданным именем</td>
   </tr>
@@ -594,7 +609,8 @@ CMD [<span>"./app"</span>]</code></pre>
   </tr>
   <tr>
     <th>
-      <code>docker container my_command</code>
+      <code>docker container my_command</code><br><br>
+      <code>docker run -it my_container</code>
     </th>
     <td>
       <h2> Схема команды для управления контейнерами</h2><br>
@@ -609,6 +625,7 @@ CMD [<span>"./app"</span>]</code></pre>
       процессу контейнера сигнала SIGTERM (и через некоторое время SIGKILL);<br>
       <code>kill</code> - остановка работающего контейнера с отправкой главному процессу контейнера сигнала SIGKILL;<br>
       <code>rm</code> - удаление остановленного контейнера.<br>
+      <code>-it</code> покажет результат в терминале
     </td>
   </tr>
   <tr>
@@ -622,6 +639,15 @@ CMD [<span>"./app"</span>]</code></pre>
       <code>inspect</code> - вывод подробной информации об образе, в том числе - сведений о слоях;<br>
       <code>rm</code> - удаление образа.<br>
     </td>
+  </tr>
+  <tr>
+    <td colspan='2'>
+      <h2>DOCKER COMPOSE</h2>
+    </td>
+  </tr>
+  <tr>
+    <th></th>
+    <td><br></td>
   </tr>
   <tr>
     <td colspan="2"><h2>Удаление образов Docker</h2></td>
@@ -732,7 +758,8 @@ docker rm $(docker ps -a -q)</code></pre>
     <a href="https://gist.github.com/tomasevich/521926e5dabcee3a35afa30124102176" target="_blank">2. Список комманд</a><br>
     <a href="https://www.youtube.com/watch?v=ZkJtKRIo2As" target="_blank">3. cmd Docker video</a><br>
     <a href="https://docs.docker.com/engine/reference/commandline/rmi/" target="_blank">4. Документация</a>  <br>
-    <a href="https://kapeli.com/cheat_sheets/Dockerfile.docset/Contents/Resources/Documents/index">Краткий справочник</a> по инструкциям Dockerfile
+    <a href="https://kapeli.com/cheat_sheets/Dockerfile.docset/Contents/Resources/Documents/index">Краткий справочник</a> по инструкциям Dockerfile <br><br>
+    <a href="https://russianblogs.com/article/19173231786/">Docker-compose</a> Обычно используемые команды<br>
     </td>
   </tr>
 </table>
