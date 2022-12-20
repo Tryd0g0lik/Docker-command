@@ -636,6 +636,7 @@ CMD [<span>"./app"</span>]</code></pre>
       <code>inspect</code> - вывод подробной информации о контейнере;<br>
       <code>logs</code> - вывод логов;<br>
       <code>stop</code> - остановка работающего контейнера с отправкой главному<br>
+    <code>start</code> -  запускаем контейнеры<br>
       процессу контейнера сигнала SIGTERM (и через некоторое время SIGKILL);<br>
       <code>kill</code> - остановка работающего контейнера с отправкой главному процессу контейнера сигнала SIGKILL;<br>
       <code>rm</code> - удаление остановленного контейнера.<br>
@@ -701,6 +702,12 @@ CMD [<span>"./app"</span>]</code></pre>
     <th><code>docker stop</code></th>
     <td> - останавливаем контейнеры<br>
     <code>docker stop < имя/id > </code> - останавливаем конкретный контейнер.    
+    </td>
+  </tr>
+<tr>
+    <th><code>docker container start</code></th>
+    <td> - запускаем контейнеры<br>
+        
     </td>
   </tr>
 <tr>
