@@ -548,9 +548,9 @@ CMD [<span>"./app"</span>]</code></pre>
   </tr>
   <tr>
     <th>
-      <code>docker images</code>
+      <code>cat</code>
     </th>
-    <td>показать все установленные образы</td>
+    <td> - позволяет прочитать файл</td>
   </tr>
   <tr>
     <th>
@@ -576,12 +576,7 @@ CMD [<span>"./app"</span>]</code></pre>
     </th>
     <td> - создать папку "test"</td>
   </tr>
-  <tr>
-    <th>
-      <code>mkdir test</code>
-    </th>
-    <td> - создать папку "test"</td>
-  </tr>
+
   <tr>
     <th>
       <code>docker search имя_контейнера</code>
@@ -589,8 +584,25 @@ CMD [<span>"./app"</span>]</code></pre>
     <td>смотрим, есть ли контейнер с заданным именем</td>
   </tr>
   <tr>
+    <th>
+      <code>echo ${PWD}</code>
+    </th>
+    <td> - выводит на экран путь к папке, в которой находимся.</td>
+  </tr>
+ <tr>
+    <th>
+      <code>cd Desktop</code>
+    </th>
+    <td> - переходим на рабочий стол.</td>
+  </tr>
+  <tr>
     <td colspan='2'>
       <code>< комманда > --help</code>
+    </td>
+  </tr>
+ <tr>
+    <td colspan='2'>
+      <br>
     </td>
   </tr>
   <tr>
@@ -610,7 +622,9 @@ CMD [<span>"./app"</span>]</code></pre>
   <tr>
     <th>
       <code>docker container my_command</code><br><br>
-      <code>docker run -it my_container</code>
+      <code>docker run -it my_container</code><br><br>
+    <code>docker run -it --name my_container</code><br><br>
+    <code>docker run -it --name my_container nginx </code>
     </th>
     <td>
       <h2> Схема команды для управления контейнерами</h2><br>
@@ -625,9 +639,18 @@ CMD [<span>"./app"</span>]</code></pre>
       процессу контейнера сигнала SIGTERM (и через некоторое время SIGKILL);<br>
       <code>kill</code> - остановка работающего контейнера с отправкой главному процессу контейнера сигнала SIGKILL;<br>
       <code>rm</code> - удаление остановленного контейнера.<br>
-      <code>-it</code> покажет результат в терминале
+ <h3>Опции</h3><br>
+      <code>-it</code> покажет результат в терминале<br>
+    <code>--name < name_container ></code> - задаем имя для контейнера<br>
+    <code>-p 8080:80</code> - на ПК открываем порт для работы с контейнером<br>
+<h3>Филтры</h3><br>
+    <code> | grep < имя атрибута ></code> - филтруем результат <code>innspect-а</code><br>
     </td>
   </tr>
+    <tr>
+        <th><code>docker images</code></th>
+        <td>Показывает информацию об образах установленных локально на ПК</td>    
+    <tr>
   <tr>
     <th><code>docker image my_command1</code></th>
     <td><h2>Схема команды для управления образами:</h2><br>
@@ -639,13 +662,73 @@ CMD [<span>"./app"</span>]</code></pre>
       <code>inspect</code> - вывод подробной информации об образе, в том числе - сведений о слоях;<br>
       <code>rm</code> - удаление образа.<br>
     </td>
-  </tr>
+    </tr>
+<th><code>docker run -v ${PWD}:/usr/share/nginx/html nginx</code></th>
+    <td><h2>Схема команды для управления ТОМами:</h2><br>
+    <code>-v</code> - позволяет подключить том<br>
+    <code>${PWD}</code> - путь к локальной папке. ПЕременная доступна во всех ОС и показывает путь к текущей папке
+    <br>Путь к папке также можно писать вручную. <br>
+    <code>/user/share/nginx/html</code> - путь к папке внутри контейнера<br>
+    <code>nginx</code> - название образа
+    </td>
+    </tr>
+    <tr>
+        <th><code>docker version</code></th>
+     <td>Показывает информацию о клиента Docker и о сервере</td>    
+    <tr>
+    <tr>
+        <th><code>docker ps</code></th>
+        <td>Показывает список запущенных контейнеров <br>
+<code> -a</code> - показывает и остановленные конейнеры</td>    
+    <tr>
   <tr>
+    <th><code>Docker container prune</code></th>
+    <td>Удалить все остановленные контейнеры<br>
+   
+</td>
+  </tr>
+
+<tr>
+    <th><code>docker container inspect < id-контейнера/образа ></code></th> 
+    <td> Выводит информацию об объекте 
+(контейнер/образ)<br>
+<code> | grep < имя атрибута ></code> - филтруем результат <code>innspect-а</code><br>
+<code> < имя атрибута ></code> - например имя IPAdress<br>
+<code>docker container inspect 5e83821c2146 | grep IPAddress</code>
+    </td>
+  </tr>
+<tr>
+    <th><code>docker stop</code></th>
+    <td> - останавливаем контейнеры<br>
+    <code>docker stop < имя/id > </code> - останавливаем конкретный контейнер.    
+    </td>
+  </tr>
+<tr>
+    <th><code>docker exec -it 8ed36b6108a1 bash</code></th>
+    <td><code>exec</code> - позволяет запускать дополнительные процессы в запущенном контейнере<br>
+    <code>-it</code> - опции подключения интерактивного терминала<br>
+    <code>bash</code> - название процесса (комманда) который хотим запустить. <br>
+В данном случае данная комманда помогает попасть внутрь запущенного контейнара.<br>
+<code>exite</code> выход из контейнера и <code>bash</code> завершен, но контейнер работает.</td>
+  </tr>
+<tr>
+    <th><code>docker run -p 8080:80 nginx</code></th>
+    <td>Создаем контейнер <br>
+    <code>-p </code> - на ПК открываем порт <code>8080:80</code> для работы с контейнером где<br>
+<code>8080</code> - внешнией порт<br>
+<code>80</code> - внутренний порт образа<br>
+осле через браузер можно подключиться через любой IP-адресс с портом 8080. <br>
+Например <code>Localhost:8080</code></td>
+  </tr>
+<tr>
+    <th></th>
+    <td><br></td>
+  </tr>
     <td colspan='2'>
       <h2>DOCKER COMPOSE</h2>
     </td>
   </tr>
-  <tr>
+<tr>
     <th></th>
     <td><br></td>
   </tr>
@@ -654,7 +737,6 @@ CMD [<span>"./app"</span>]</code></pre>
   </tr>
   <tr>
     <td colspan="2">
-
     <h3>Удаление одного или нескольких конкретных образов</h3>
     <p>Список покажет. Используйте команду docker images с флагом <code>-a </code>, чтобы найти идентификатор
        удаляемых образов. <br>
