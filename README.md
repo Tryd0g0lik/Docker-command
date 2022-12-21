@@ -1,4 +1,12 @@
+<h3><font color="#3AC1EF">▍Демон Docker</font></h3>
+<p>
+Демон Docker (<a href="https://docs.docker.com/engine/docker-overview/">Docker Daemon</a>) — это сервер Docker, который ожидает запросов к API Docker. Демон Docker управляет образами, контейнерами, сетями и томами.</p>
+<br><h3><font color="#3AC1EF">▍Тома Docker</font></h3>
+<p>Тома Docker (<a href="https://docs.docker.com/storage/volumes/">Docker Volumes</a>) представляют собой наиболее 
+предпочтительный механизм постоянного хранения данных, потребляемых или производимых приложениями.</p><br>
 <p>Dockerfile размещаем в корневую папку нашего приложения.</p>
+
+
 
 <p>Каждому образу Docker соответствует файл, который называется Dockerfile. Его имя — без расширения.
 Dockerfile находится в текущей рабочей директории.<br>
@@ -202,6 +210,26 @@ VOLUME /my_volume</code></pre><br>
               <p>Документация Docker рекомендует использовать exec-форму <code>ENTRYPOINT</code>: <code>ENTRYPOINT ["executable", "param1", "param2"]</code>.</p>
             </li>
           </ul>
+        <h4>exec-формы инструкций CMD и ENTRYPOINT</h4>
+        <p>Инструкции&nbsp;<code>CMD</code>&nbsp;и&nbsp;<code>ENTRYPOINT</code>&nbsp;в файлах Dockerfile можно оформлять с использованием массивов (exec-форма) или с использованием строк (shell-форма):</p>
+        <pre>
+            <code >
+                <span ># массив (exec)</span>
+                 CMD [<span >"gunicorn"</span>, <span>"-w"</span>, <span >"4"</span>, <span >"-k"</span>, <span>"uvicorn.workers.UvicornWorker"</span>, <span >"main:app"</span>]
+                <span ># строка (shell)</span>
+                CMD <span >"gunicorn -w 4 -k uvicorn.workers.UvicornWorker main:app"</span>
+            </code>
+        </pre>
+        <a href="https://docs.docker.com/compose/faq/#why-do-my-services-take-10-seconds-to-recreate-or-stop">Документация Docker</a>
+        </td>
+      </tr>
+        <tr>
+          <th>
+            <code>HEALTHCHECK</code>
+          </th>
+        <td>
+        <a href="https://docs.docker.com/engine/reference/builder/#healthcheck">HEALTHCHECK</a>
+        <p>Используйте инструкцию&nbsp;<code>HEALTHCHECK</code>&nbsp;для того, чтобы проверить то, что процесс, выполняемый в контейнере, не просто функционирует, а ещё и находится в «здоровом» состоянии.</p>
         </td>
       </tr>
       <tr>
@@ -224,7 +252,8 @@ VOLUME /my_volume</code></pre><br>
       </tr>
    <tr>
      <td colspan='2'>
-       <h2>Уменьшение размеров образов и ускорение их сборки</h2><br>
+       <h2>Уменьшение размеров образов и ускорение их сборки</h2>
+        <ol><li><p>Составляя файлы Dockerfile, всегда старайтесь размещать слои, которые, вероятнее всего, будут меняться как можно ближе к концу файла.</p></li><li><p>Комбинируйте команды&nbsp;<code>RUN apt-get update</code>&nbsp;и&nbsp;<code>RUN apt-get install</code>. (Это, кроме того, положительно сказывается на размерах файлов. Мы ещё об этом поговорим.)</p></li><li><p>Если вам нужно отключить кеширование для конкретной Docker-сборки — воспользуйтесь опцией&nbsp;<code>--no-cache=True</code>.</p></li></ol>
        <h3>Кэширование</h3>
        <p>Одной из сильных сторон Docker является кэширование. Благодаря этому механизму ускоряется сборка образов.</p>
        <p>При сборке образа Docker проходится по инструкциям файла Dockerfile, выполняя их по порядку. В процессе анализа инструкций Docker <br> проверяет собственный кэш на наличие в нём образов, представляющих собой то, что получается на промежуточных этапах сборки других образов. Если подобные образы удаётся найти, то <br>система может ими воспользоваться, не тратя время на их повторное создание.</p>
@@ -242,7 +271,19 @@ VOLUME /my_volume</code></pre><br>
         COPY . /tmp/</code></pre>
         </li>
       </ul>
-      <h2>Уменьшение размеров образов</h2>
+        <h4>Место для кеширования пакетов</h4>
+                <p>Место для кеширования пакетов можно указать в виде опции при запуске Docker&nbsp;<code>(-v $HOME/.
+        cache/pip-docker/:/root/.cache/pip</code>), назначение соответствующей директории директорией, где хранится кеш, 
+        можно описать и в файле настройки Docker Compose. Можно  выбрать ту директорию, которая вам нужна.</p>
+        <p>Проверьте, чтобы в качестве директории, где хранится кеш, была бы назначена правильная директория, а не та, в которой хранятся пакеты, имеющие отношение к конкретному проекту (та, где находятся пакеты, используемые при сборке).</p>
+        <p>Если вы применяете&nbsp;<a href="https://docs.docker.com/develop/develop-images/build_enhancements/">Docker BuildKit</a>, можно для управления кешем воспользоваться ключом&nbsp;<code>--mount=type=cache</code>:</p>
+        <pre><code class="powershell hljs"><span class="hljs-comment"># syntax = docker/dockerfile:1.2</span>
+        ...
+        <span c>COPY</span> requirements.txt .        
+        RUN -<span>-mount</span>=<span>type</span>=cache,target=/root/.cache/pip \
+                pip install <span>-r</span> requirements.txt        
+        ...</code></pre>
+    <h2>Уменьшение размеров образов</h2>
       <h3>Тщательный подбор базового образа</h3>
       <p>Одним из способов уменьшения размеров образов является тщательный подбор базовых образов и их последующая настройка.</p>
       <p>Так, например, базовый образ Alpine представляет собой полноценный дистрибутив Linux-подобной ОС, содержащий минимум дополнительных пакетов. Его размер — примерно 5 мегабайт. Однако сборка собственного образа на основе Alpine потребует потратить достаточно много времени на то, чтобы оснастить его всем необходимым для обеспечения работы некоего приложения.</p>
@@ -260,15 +301,15 @@ VOLUME /my_volume</code></pre><br>
       </ul>
       <p>Вот модифицированный пример файла Dockerfile из <a href="https://docs.docker.com/develop/develop-images/multistage-build/">документации</a> Docker, описывающего многоступенчатую сборку.</p>
       <pre><code>FROM golang:1.7.3 AS build /
-WORKDIR /go/src/github.com/alexellis/href-counter /
-RUN go get -d -v golang.org/x/net/html /
-COPY app.go . /
-RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o app . /
-FROM alpine:latest /
-RUN apk --no-cache add ca-certificates /
-WORKDIR /root/
-COPY --from=build /go/src/github.com/alexellis/href-counter/app . /
-CMD [<span>"./app"</span>]</code></pre>
+        WORKDIR /go/src/github.com/alexellis/href-counter /
+        RUN go get -d -v golang.org/x/net/html /
+        COPY app.go . /
+        RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o app . /
+        FROM alpine:latest /
+        RUN apk --no-cache add ca-certificates /
+        WORKDIR /root/
+        COPY --from=build /go/src/github.com/alexellis/href-counter/app . /
+        CMD [<span>"./app"</span>]</code></pre>
       <p>Обратите внимание на то, что мы дали имя первой ступени сборки, указав его после инструкции <code>FROM</code>. К именованному этапу сборки мы обращаемся в инструкции <code>COPY --from=</code> ниже в Dockerfile.</p>
       <p> Об особенностях этой технологии можно почитать <a href="https://blog.realkinetic.com/building-minimal-docker-containers-for-python-applications-37d0272c52f3">здесь</a> и <a href="https://medium.com/@tonistiigi/advanced-multi-stage-build-patterns-6f741b852fae">здесь</a>.</p><br>
       <h3>Файл .dockerignore</h3>
@@ -649,6 +690,10 @@ CMD [<span>"./app"</span>]</code></pre>
     </td>
   </tr>
     <tr>
+        <th><code>docker history < name_container ></code></th>
+        <td></td>    
+    <tr>
+    <tr>
         <th><code>docker images</code></th>
         <td>Показывает информацию об образах установленных локально на ПК</td>    
     <tr>
@@ -849,6 +894,31 @@ docker rm $(docker ps -a -q)</code></pre>
     <a href="https://docs.docker.com/engine/reference/commandline/rmi/" target="_blank">4. Документация</a>  <br>
     <a href="https://kapeli.com/cheat_sheets/Dockerfile.docset/Contents/Resources/Documents/index">Краткий справочник</a> по инструкциям Dockerfile <br><br>
     <a href="https://russianblogs.com/article/19173231786/">Docker-compose</a> Обычно используемые команды<br>
+    </td>
+  </tr>
+ <tr>
+    <td colspan="2"><br>
+    </td>
+  </tr>
+<tr>
+    <td colspan="2"><h2>ENV-переменные</h2>
+    </td>
+  </tr>
+<tr>
+<th><code>PYTHONDONTWRITEBYTECODE 1</code></th>
+    <td>
+    PYTHONDONTWRITEBYTECODE: Запрещает Python записывать файлы pyc на диск
+    </td>
+  </tr>
+<tr>
+<th><code></code></th>
+    <td>
+    </td>
+  </tr>
+<tr>
+<th><code>PYTHONUNBUFFERED 1</code></th>
+    <td>
+Запрещает Python буферизовать stdout и stderr
     </td>
   </tr>
 </table>
